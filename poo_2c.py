@@ -39,12 +39,19 @@ class personaje:
     
     def atacar(self,enemigo):
         daño = self.dañar(enemigo)
-        enemigo.vida = enemigo.vida- daño
-        print(self.nombre,"Ha hecho",daño,"puntos de daño a",enemigo.nombre)
-        print("Vida de", enemigo.nombre, "es", enemigo.vida)
+        if daño<0:
+            enemigo.defensa=enemigo.defensa-self.fuerza
+            print(self.nombre,"Ha hecho",self.fuerza,"puntos de daño a la defensa a",enemigo.nombre)
+            print("la defensa de", enemigo.nombre, "es", enemigo.defensa)
+        else:
+            enemigo.vida = enemigo.vida- daño
+            if enemigo.vida<0:
+                enemigo.morir()
+            print(self.nombre,"Ha hecho",daño,"puntos de daño a",enemigo.nombre)
+            print("Vida de", enemigo.nombre, "es", enemigo.vida)
 
 #variable del constructor 
-mi_personaje= personaje("master chif",100,50,45,100)
+mi_personaje= personaje("master chif",150,50,45,100)
 mi_personaje.imprimir_atributos()
 mi_enemigo= personaje("El malo",10,50,45,100)
 mi_personaje.atacar(mi_enemigo)
