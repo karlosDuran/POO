@@ -15,6 +15,7 @@ class personaje:
     #que el el metodo init? constructor que inicializa los atributos de un objeto
     #pq se usa doble guion bajo? Dunder. porque es un metodo magico.
     #cuando se ejecuta el metodo init? Autom. al crear una nueva instacia u objeto
+    
     def imprimir_atributos(self):
         print(self.nombre)
         print("-fuerza:",self.fuerza)
@@ -49,13 +50,21 @@ class personaje:
                 enemigo.morir()
             print(self.nombre,"Ha hecho",daño,"puntos de daño a",enemigo.nombre)
             print("Vida de", enemigo.nombre, "es", enemigo.vida)
+class Guerrero(personaje):
+    #sobreescribir el constructor
+    def __init__(self, nombre, fuerza, inteligencia, defensa, vida,espada):
+        super().__init__(nombre, fuerza, inteligencia, defensa, vida)
+        self.espada=espada
 
+arturoSuarez = Guerrero("Arutro",12,3000,2,100, .5)
+arturoSuarez.imprimir_atributos()
+print(f"El valor de espada es: {arturoSuarez.espada}")
 #variable del constructor 
 mi_personaje= personaje("master chif",150,50,45,100)
-mi_personaje.imprimir_atributos()
+#mi_personaje.imprimir_atributos()
 mi_enemigo= personaje("El malo",10,50,45,100)
-mi_personaje.atacar(mi_enemigo)
-mi_enemigo.imprimir_atributos()
+#mi_personaje.atacar(mi_enemigo)
+#mi_enemigo.imprimir_atributos()
 
 # mi_personaje.subir_nivel(15,20,30)
 # print("Valores actualizados")
