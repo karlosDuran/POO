@@ -5,17 +5,30 @@ class personaje:
     #inteligencia=0
     #defensa=0
     #vida=0
-    def __init__(self, nombre, fuerza, inteligencia, defensa, vida):
+    def __init__(self, nombre, fuerza, inteligencia, defensa, vida,posima):
         self.nombre=nombre
         self.fuerza=fuerza
         self.inteligencia=inteligencia
         self.defensa=defensa
         self.vida=vida
+        self.posima=posima
+        #codigo que cambia atributos segun la posima, lo pongo aqui para que todos lo hereden y se ejecute al inicializar los atributos
+        if posima==1: #el uno es para la vida
+            self.vida= (self.vida)+20
+        elif posima==2: #este para multiplicar el ataque y tenga 50% mas
+            self.fuerza= int(self.fuerza * 1.5)
+        elif posima == 3: #para tener mas inteligencia, se le suma 60
+            self.inteligencia= self.inteligencia +60
+        else:
+            pass #sino no hace ni mais
+            
     #¿Qué es self? es una referencia al mismo objeto
     #que el el metodo init? constructor que inicializa los atributos de un objeto
     #pq se usa doble guion bajo? Dunder. porque es un metodo magico.
     #cuando se ejecuta el metodo init? Autom. al crear una nueva instacia u objeto
     #¿Que es polimorfismo ejemplo? un mismo metodo va a tener diferente comportamiento dependiendo de que objeto lo llame
+    
+    
     
     def imprimir_atributos(self):
         print(self.nombre)
@@ -55,9 +68,11 @@ class personaje:
             
 class Guerrero(personaje):
     #sobreescribir el constructor
-    def __init__(self, nombre, fuerza, inteligencia, defensa, vida,espada):
-        super().__init__(nombre, fuerza, inteligencia, defensa, vida)
+    def __init__(self, nombre, fuerza, inteligencia, defensa, vida,espada,escudo,posima):
+        super().__init__(nombre, fuerza, inteligencia, defensa, vida,posima)
         self.espada=espada
+        self.escudo=escudo
+        self.defensa= defensa*escudo
         
     #sobreescribir imprecion de atributos
     def imprimir_atributos(self):
@@ -82,8 +97,8 @@ class Guerrero(personaje):
 
 class Mago(personaje):
     #sobreescribir el constructor
-    def __init__(self, nombre, fuerza, inteligencia, defensa, vida,libro):
-        super().__init__(nombre, fuerza, inteligencia, defensa, vida)
+    def __init__(self, nombre, fuerza, inteligencia, defensa, vida,libro,posima):
+        super().__init__(nombre, fuerza, inteligencia, defensa, vida,posima)
         self.libro=libro
         
     #sobreescribir imprecion de atributos
@@ -107,9 +122,9 @@ class Mago(personaje):
             #vuelve a ejecutar el metodo
             self.escoger_libro()
 
-mi_personaje= personaje("master chif",20,15,10,100)
-arturoSuarez = Guerrero("Arutro",20,15,10,100, 5)
-gandalf = Mago("gandalf",20,15,10,100, 5)
+mi_personaje= personaje("master chif",20,15,10,100,2)
+arturoSuarez = Guerrero("Arutro",20,15,10,100, 5,2,0)
+gandalf = Mago("gandalf",20,15,10,100, 5,0)
 
 #atributos antes de la tragedia
 mi_personaje.imprimir_atributos()
@@ -130,7 +145,7 @@ arturoSuarez.imprimir_atributos()
 #variable del constructor 
 
 #mi_personaje.imprimir_atributos()
-mi_enemigo= personaje("El malo",10,50,45,100)
+mi_enemigo= personaje("El malo",10,50,45,100,0)
 #mi_personaje.atacar(mi_enemigo)
 #mi_enemigo.imprimir_atributos()
 
