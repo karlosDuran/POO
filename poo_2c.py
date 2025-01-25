@@ -11,7 +11,7 @@ class personaje:
         self.inteligencia=inteligencia
         self.defensa=defensa
         self.vida=vida
-        self.posima=posima
+        self.posima=posima    
         #codigo que cambia atributos segun la posima, lo pongo aqui para que todos lo hereden y se ejecute al inicializar los atributos
         if posima==1: #el uno es para la vida
             self.vida= (self.vida)+20
@@ -21,7 +21,11 @@ class personaje:
             self.inteligencia= self.inteligencia +60
         else:
             pass #sino no hace ni mais
-            
+    #importante, para mostrar el nombre y que no salga la direccion del objeto se usa losiguiente
+    def __repr__(self):
+        return f"{self.nombre}: Vida {self.vida}"
+    
+    
     #¿Qué es self? es una referencia al mismo objeto
     #que el el metodo init? constructor que inicializa los atributos de un objeto
     #pq se usa doble guion bajo? Dunder. porque es un metodo magico.
@@ -121,10 +125,39 @@ class Mago(personaje):
             print("valor invalido, intente de nuevo")
             #vuelve a ejecutar el metodo
             self.escoger_libro()
+            
+def personaje_con_mayor_vida(personajes):
+    """
+    devuelve el que tenga vida maxima entre los personajes de una lista
+    """
+    return max(personajes, key=lambda p: p.vida)
+#aqui pasan varias cosas, lambda es como una funcion pero en chiquito, solo se ejecuta una ves, max compara y muestra el maximo de una lista
+#key= lambda es para comparar, primero ponemos personajes pq es lo que vamos a comparar, luego key= lambda para hacer la funcion chiquita,
+#p, es para la variable que le vamos a pasar, luego esa variable le va a agragar.vida, va a comparar y devolver el que tenga mas vida
 
+def suma_inteligencia(personajes):
+    """
+    Esto papito va a sumar las inteligencias de todos
+    """
+    total_inteligencia=0
+    for chavo in personajes:
+        total_inteligencia += chavo.inteligencia
+    return total_inteligencia
+
+def vida_mayor_k(personajes):
+    mayores_q=[]
+    numero= int(input(" intruduce el valor de vida mayor q \n ***"))
+    for chavo in personajes:
+        if chavo.vida>numero:
+            mayores_q.append(chavo)
+    return mayores_q
+        
 mi_personaje= personaje("master chif",20,15,10,100,2)
 arturoSuarez = Guerrero("Arutro",20,15,10,100, 5,2,0)
 gandalf = Mago("gandalf",20,15,10,100, 5,0)
+
+#los guardamos en una lista para poder compararlos
+personajes = [mi_personaje, arturoSuarez, gandalf]
 
 #atributos antes de la tragedia
 mi_personaje.imprimir_atributos()
@@ -140,6 +173,18 @@ gandalf.atacar(mi_personaje)
 mi_personaje.imprimir_atributos()
 gandalf.imprimir_atributos()
 arturoSuarez.imprimir_atributos()
+
+personaje_mayor_vida = personaje_con_mayor_vida(personajes)
+print(f"El personaje con mayor vida es: {personaje_mayor_vida}")
+
+total_inteligencias = suma_inteligencia(personajes)
+print(f"La suma total de inteligencias es: {total_inteligencias}")
+
+personajes_mayor_k= vida_mayor_k(personajes)
+if len(personajes_mayor_k)==0:
+    print("nadia tiene tanta vida we")
+else:
+    print(f"los personajes con mas vida que eso son {personajes_mayor_k}")
 
 #print(f"El valor de espada es: {arturoSuarez.espada}")
 #variable del constructor 
